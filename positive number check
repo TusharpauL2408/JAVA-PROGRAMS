@@ -1,0 +1,48 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class PositiveNumberCheck {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the path to the file containing numbers: ");
+        String filePath = scanner.nextLine();
+
+        try {
+            checkForPositiveNumbers(filePath);
+            System.out.println("No positive numbers found. File is valid.");
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: File not found. Please check the file path and try again.");
+        } catch (PositiveNumberException e) {
+            System.out.println("Error: Positive number found - " + e.getPositiveNumber());
+        }
+    }
+
+    private static void checkForPositiveNumbers(String filePath) throws FileNotFoundException, PositiveNumberException {
+        File file = new File(filePath);
+        Scanner fileScanner = new Scanner(file);
+
+        while (fileScanner.hasNext()) {
+            int number = fileScanner.nextInt();
+            if (number > 0) {
+                throw new PositiveNumberException(number);
+            }
+        }
+
+        fileScanner.close();
+    }
+
+    static class PositiveNumberException extends Exception {
+        private final int positiveNumber;
+
+        public PositiveNumberException(int positiveNumber) {
+            this.positiveNumber = positiveNumber;
+        }
+
+        public int getPositiveNumber() {
+            return positiveNumber;
+        }
+    }
+}
