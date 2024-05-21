@@ -1,0 +1,67 @@
+class Product {
+    String name;
+    double price;
+    int quantity;
+
+    Product(String name, double price, int quantity) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
+}
+
+class Customer {
+    static int idCounter = 1;
+
+    int customerId;
+    String name;
+
+    Customer(String name) {
+        this.customerId = idCounter++;
+        this.name = name;
+    }
+}
+
+public class AmazonStore {
+    public static void sell(Customer customer, Product product, int quantity) {
+        if (quantity <= 0) {
+            System.out.println("Invalid quantity. Please enter a positive quantity.");
+            return;
+        }
+
+        if (quantity > product.quantity) {
+            System.out.println("Sorry, only " + product.quantity + " units of " + product.name + " are available.");
+        } else {
+            double totalCost = product.price * quantity;
+            product.quantity -= quantity;
+            System.out.println("Sold " + quantity + " units of " + product.name + " to customer " +
+                    customer.customerId + ".");
+            System.out.println("Total cost: $" + totalCost);
+            System.out.println("Remaining quantity of " + product.name + ": " + product.quantity + "\n");
+        }
+    }
+
+    public static void main(String[] args) {
+        // Create products X and Y
+        Product productX = new Product("X", 20.0, 50);
+        Product productY = new Product("Y", 15.0, 30);
+
+        // Create 10 customers
+        Customer[] customers = {
+                new Customer("Alice"),
+                new Customer("Bob"),
+                new Customer("Charlie"),
+                new Customer("David"),
+                new Customer("Eve"),
+                new Customer("Frank"),
+                new Customer("Grace"),
+                new Customer("Hank"),
+                new Customer("Ivy"),
+                new Customer("Jack")
+        };
+
+        // Simulate selling products to customers
+        sell(customers[0], productX, 3);
+        sell(customers[1], productY, 2);
+    }
+}
