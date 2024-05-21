@@ -1,0 +1,55 @@
+import java.util.*;
+
+public class DuplicateCheck {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the list of integers separated by spaces: ");
+        String input = scanner.nextLine();
+
+        try {
+            List<Integer> numbers = parseInput(input);
+            checkForDuplicates(numbers);
+            System.out.println("No duplicates found. List is valid.");
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Please enter valid integers separated by spaces.");
+        } catch (DuplicateNumberException e) {
+            System.out.println("Error: Duplicate number found - " + e.getDuplicateNumber());
+        }
+    }
+
+    private static List<Integer> parseInput(String input) {
+        String[] numberStrings = input.split("\\s+");
+        List<Integer> numbers = new ArrayList<>();
+
+        for (String numberString : numberStrings) {
+            int number = Integer.parseInt(numberString);
+            numbers.add(number);
+        }
+
+        return numbers;
+    }
+
+    private static void checkForDuplicates(List<Integer> numbers) throws DuplicateNumberException {
+        Set<Integer> uniqueNumbers = new HashSet<>();
+        
+        for (int number : numbers) {
+            if (!uniqueNumbers.add(number)) {
+                throw new DuplicateNumberException(number);
+            }
+        }
+    }
+
+    static class DuplicateNumberException extends Exception {
+        private final int duplicateNumber;
+
+        public DuplicateNumberException(int duplicateNumber) {
+            this.duplicateNumber = duplicateNumber;
+        }
+
+        public int getDuplicateNumber() {
+            return duplicateNumber;
+        }
+    }
+}
