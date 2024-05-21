@@ -1,0 +1,21 @@
+public class JaggedArrayExample {  
+    public static void main(String[] args) {  
+          
+          
+        int[][] jaggedArray = {{1,2},{3,4,5},{5,6,7,8}};
+          
+          
+        for (int i = 0; i < jaggedArray.length; i++) {  
+              
+            int sum=0;
+            for (int j = 0; j < jaggedArray[i].length; j++) {  
+                  
+                sum=sum+jaggedArray[i][j]; 
+                System.out.print("Sum of elemnts in a row:" + (i+1) + ":" + sum);  
+            }  
+              
+            
+            System.out.println();  
+        }  
+    }  
+}  
