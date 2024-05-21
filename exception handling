@@ -1,0 +1,54 @@
+import java.util.Scanner;
+
+public class ExceptionHandlingExample {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            // Example 1: Division by zero
+            int result = divideByZero(10, 0);
+            System.out.println("Result of division: " + result);
+
+            // Example 2: String parsed to a numeric variable
+            int number = parseStringToNumber("abc");
+            System.out.println("Parsed number: " + number);
+
+            // Example 3: Accessing an invalid index in string
+            char character = getCharacterAtIndex("Hello", 10);
+            System.out.println("Character at index: " + character);
+
+            // Example 4: Accessing an invalid index in array
+            int[] array = {1, 2, 3};
+            int value = getValueAtIndex(array, 5);
+            System.out.println("Value at index: " + value);
+
+        } catch (ArithmeticException e) {
+            System.out.println("Invalid division");
+        } catch (NumberFormatException e) {
+            System.out.println("Format mismatch");
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Index is invalid");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Array index is invalid");
+        } catch (Exception e) {
+            System.out.println("Exception encountered");
+        }
+    }
+
+    private static int divideByZero(int numerator, int denominator) {
+        return numerator / denominator;
+    }
+
+    private static int parseStringToNumber(String str) {
+        return Integer.parseInt(str);
+    }
+
+    private static char getCharacterAtIndex(String str, int index) {
+        return str.charAt(index);
+    }
+
+    private static int getValueAtIndex(int[] array, int index) {
+        return array[index];
+    }
+}
